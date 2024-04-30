@@ -19,10 +19,12 @@ class _NewExpense extends State<NewExpense> {
 
 // Se utilizo TextEditingController ya que flutter maneja mejor el como se guarda lo que el usuario escribio
   final _tittleController = TextEditingController();
+  final _amountController = TextEditingController();
 
 //dispose sirve para cerrar el campo textfield de la UI en este caso cerrarlo cuando el modal este abierto
   @override
   void dispose() {
+    _amountController.dispose();
     _tittleController.dispose();
     super.dispose();
   }
@@ -40,16 +42,31 @@ class _NewExpense extends State<NewExpense> {
               label: Text('Tittle'),
             ),
           ),
+          TextField(
+            controller: _amountController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              prefixText: '\$ ',
+              label: Text('Amount'),
+            ),
+          ),
           Row(
             children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
               ElevatedButton(
                 onPressed: () {
                   print(_tittleController.text);
+                  print(_amountController.text);
                 },
                 child: const Text('Save Expense'),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
