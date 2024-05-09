@@ -34,7 +34,36 @@ class Expense {
   final DateTime date; // DateTime nos permite guardar datos en formato de fecha
   final Category category;
 
-  String get formattedDate {//Se utilizo el get
-    return formatter.format(date);//Con la paqueteria intl se instala y se manda a llamar y se le da formato
+  String get formattedDate {
+    //Se utilizo el get
+    return formatter.format(
+        date); //Con la paqueteria intl se instala y se manda a llamar y se le da formato
+  }
+}
+
+class ExpenseBucket {
+  const ExpenseBucket({
+    required this.category,
+    required this.expenses,
+  });
+
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+
+//Creamos una variable final llamada expense y utilizamos "in" para decirle a Dart que queremos ir por todos los items de esa lista
+//Sirve como alternativa para recorrer los elementos de una lista sin tener que usar el for normalmente
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+
+    return sum;
   }
 }
