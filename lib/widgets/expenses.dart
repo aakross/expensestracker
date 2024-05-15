@@ -30,6 +30,8 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+        //useSafeArea te permite alejarte de las camaras que ya estan integradas en la pantalla como el island de Iphone
+        useSafeArea: true,
         //Aqui se le indica que tome toda la altura disponible para que no tape o se superponga a los campos
         isScrollControlled: true,
         context: context,
